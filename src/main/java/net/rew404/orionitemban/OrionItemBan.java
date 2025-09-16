@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package net.rew404.orionitemban;
 
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,8 +15,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(ExampleMod.MOD_ID)
-public class ExampleMod
+@Mod(OrionItemBan.MOD_ID)
+public class OrionItemBan
 {
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "orionitemban";
@@ -24,7 +24,7 @@ public class ExampleMod
     private static final Logger LOGGER = LogUtils.getLogger();
 
 
-    public ExampleMod(FMLJavaModLoadingContext context) {
+    public OrionItemBan(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
