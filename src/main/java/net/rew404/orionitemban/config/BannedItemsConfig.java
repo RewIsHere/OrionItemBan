@@ -19,7 +19,6 @@ public class BannedItemsConfig {
     public static Set<String> DROP_FROM_INVENTORY = new HashSet<>();
     public static Set<String> DELETE_ON_PICKUP = new HashSet<>();
     public static Set<String> BAN_CRAFTING = new HashSet<>();
-    public static Set<String> BAN_TRADES = new HashSet<>();
     public static Set<String> REMOVE_FROM_DUNGEONS = new HashSet<>();
 
     /** Cargar el JSON, crear archivo por defecto si no existe */
@@ -40,7 +39,6 @@ public class BannedItemsConfig {
             DROP_FROM_INVENTORY = map.getOrDefault("drop_from_inventory", new HashSet<>());
             DELETE_ON_PICKUP = map.getOrDefault("delete_on_pickup", new HashSet<>());
             BAN_CRAFTING = map.getOrDefault("ban_crafting", new HashSet<>());
-            BAN_TRADES = map.getOrDefault("ban_trades", new HashSet<>());
             REMOVE_FROM_DUNGEONS = map.getOrDefault("remove_from_dungeons", new HashSet<>());
 
             OrionItemBan.LOGGER.info("Configuración de items baneados cargada correctamente ✅");
@@ -57,7 +55,6 @@ public class BannedItemsConfig {
             defaults.put("drop_from_inventory", new HashSet<>());
             defaults.put("delete_on_pickup", new HashSet<>());
             defaults.put("ban_crafting", new HashSet<>());
-            defaults.put("ban_trades", new HashSet<>());
             defaults.put("remove_from_dungeons", new HashSet<>());
 
             try (FileWriter writer = new FileWriter(file)) {
@@ -77,7 +74,6 @@ public class BannedItemsConfig {
             map.put("drop_from_inventory", DROP_FROM_INVENTORY);
             map.put("delete_on_pickup", DELETE_ON_PICKUP);
             map.put("ban_crafting", BAN_CRAFTING);
-            map.put("ban_trades", BAN_TRADES);
             map.put("remove_from_dungeons", REMOVE_FROM_DUNGEONS);
 
             File file = new File(CONFIG_PATH);
@@ -96,7 +92,6 @@ public class BannedItemsConfig {
     public static boolean isDropFromInventory(String itemId) { return DROP_FROM_INVENTORY.contains(itemId); }
     public static boolean isDeleteOnPickup(String itemId) { return DELETE_ON_PICKUP.contains(itemId); }
     public static boolean isBanCrafting(String itemId) { return BAN_CRAFTING.contains(itemId); }
-    public static boolean isBanTrades(String itemId) { return BAN_TRADES.contains(itemId); }
     public static boolean isRemoveFromDungeons(String itemId) { return REMOVE_FROM_DUNGEONS.contains(itemId); }
 
     /** Agregar item a categoría y guardar JSON */
@@ -105,7 +100,6 @@ public class BannedItemsConfig {
             case "drop" -> DROP_FROM_INVENTORY.add(itemId);
             case "pickup" -> DELETE_ON_PICKUP.add(itemId);
             case "crafting" -> BAN_CRAFTING.add(itemId);
-            case "trades" -> BAN_TRADES.add(itemId);
             case "dungeon" -> REMOVE_FROM_DUNGEONS.add(itemId);
             default -> OrionItemBan.LOGGER.warn("Categoría desconocida: " + category);
         }
@@ -117,7 +111,6 @@ public class BannedItemsConfig {
         DROP_FROM_INVENTORY.remove(itemId);
         DELETE_ON_PICKUP.remove(itemId);
         BAN_CRAFTING.remove(itemId);
-        BAN_TRADES.remove(itemId);
         REMOVE_FROM_DUNGEONS.remove(itemId);
         saveConfig();
     }
@@ -134,9 +127,6 @@ public class BannedItemsConfig {
         }
         if(!BAN_CRAFTING.isEmpty()) {
             sb.append("BAN_CRAFTING: ").append(String.join(", ", BAN_CRAFTING)).append("\n");
-        }
-        if(!BAN_TRADES.isEmpty()) {
-            sb.append("BAN_TRADES: ").append(String.join(", ", BAN_TRADES)).append("\n");
         }
         if(!REMOVE_FROM_DUNGEONS.isEmpty()) {
             sb.append("REMOVE_FROM_DUNGEONS: ").append(String.join(", ", REMOVE_FROM_DUNGEONS)).append("\n");

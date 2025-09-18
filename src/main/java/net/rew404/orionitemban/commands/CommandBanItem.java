@@ -32,7 +32,6 @@ public class CommandBanItem implements Command<CommandSourceStack> {
                                     b.suggest("drop");
                                     b.suggest("pickup");
                                     b.suggest("crafting");
-                                    b.suggest("trades");
                                     b.suggest("dungeon");
                                     return b.buildFuture();
                                 })
@@ -43,7 +42,6 @@ public class CommandBanItem implements Command<CommandSourceStack> {
                                     b.suggest("drop");
                                     b.suggest("pickup");
                                     b.suggest("crafting");
-                                    b.suggest("trades");
                                     b.suggest("dungeon");
                                     return b.buildFuture();
                                 })

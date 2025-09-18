@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.rew404.orionitemban.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ServerPlayerMixin",
+    "RecipeManagerMixin"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

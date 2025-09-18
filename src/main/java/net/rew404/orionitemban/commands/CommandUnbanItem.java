@@ -46,7 +46,6 @@ public class CommandUnbanItem implements Command<CommandSourceStack> {
             BannedItemsConfig.DROP_FROM_INVENTORY.clear();
             BannedItemsConfig.DELETE_ON_PICKUP.clear();
             BannedItemsConfig.BAN_CRAFTING.clear();
-            BannedItemsConfig.BAN_TRADES.clear();
             BannedItemsConfig.REMOVE_FROM_DUNGEONS.clear();
             BannedItemsConfig.saveConfig();
 
