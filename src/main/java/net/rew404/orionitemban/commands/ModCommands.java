@@ -13,6 +13,8 @@ public class ModCommands {
                         .then(CommandBanItem.register(dispatcher, context))
                         .then(CommandUnbanItem.register(dispatcher, context))
                         .then(CommandBanList.register(dispatcher, context))
+                        .then(CommandBlockControl.register(dispatcher, context))
+                        .then(CommandBlockStatus.register(dispatcher, context)) // <- agregamos aquí
         );
 
         dispatcher.register(Commands.literal("oib").redirect(cmd)); // alias corto

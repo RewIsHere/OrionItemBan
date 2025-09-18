@@ -15,11 +15,17 @@ public class BannedItemsConfig {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String CONFIG_PATH = "config/orionitemban/banned_items.json";
+    private static final String BLOCK_CONFIG_PATH = "config/orionitemban/blocked_blocks.json";
 
     public static Set<String> DROP_FROM_INVENTORY = new HashSet<>();
     public static Set<String> DELETE_ON_PICKUP = new HashSet<>();
     public static Set<String> BAN_CRAFTING = new HashSet<>();
     public static Set<String> REMOVE_FROM_DUNGEONS = new HashSet<>();
+
+
+    // Bloqueos de bloques
+    public static boolean DISABLE_ENCHANTING_TABLE = false;
+    public static boolean DISABLE_ANVIL = false;
 
     /** Cargar el JSON, crear archivo por defecto si no existe */
     public static void loadConfig() {
@@ -136,4 +142,52 @@ public class BannedItemsConfig {
         return sb.toString().trim();
     }
 
+    /** -----------------------------------
+     * Configuración de bloques
+     * ----------------------------------- */
+
+    public static void loadBlockConfig() {
+        try {
+            File file = new File(BLOCK_CONFIG_PATH);
+            if (!file.exists()) {
+                saveBlockConfig();
+                return;
+            }
+            FileReader reader = new FileReader(file);
+            Type type = new TypeToken<Map<String, Boolean>>(){}.getType();
+            Map<String, Boolean> map = GSON.fromJson(reader, type);
+            reader.close();
+
+            DISABLE_ENCHANTING_TABLE = map.getOrDefault("disable_enchanting_table", false);
+            DISABLE_ANVIL = map.getOrDefault("disable_anvil", false);
+        } catch (Exception e) {
+            OrionItemBan.LOGGER.error("Error cargando config de bloques", e);
+        }
+    }
+
+    public static void saveBlockConfig() {
+        try {
+            Map<String, Boolean> map = new LinkedHashMap<>();
+            map.put("disable_enchanting_table", DISABLE_ENCHANTING_TABLE);
+            map.put("disable_anvil", DISABLE_ANVIL);
+
+            File file = new File(BLOCK_CONFIG_PATH);
+            file.getParentFile().mkdirs();
+            try (FileWriter writer = new FileWriter(file)) {
+                GSON.toJson(map, writer);
+            }
+        } catch (Exception e) {
+            OrionItemBan.LOGGER.error("Error guardando config de bloques", e);
+        }
+    }
+
+    public static void setDisableEnchantingTable(boolean value) {
+        DISABLE_ENCHANTING_TABLE = value;
+        saveBlockConfig();
+    }
+
+    public static void setDisableAnvil(boolean value) {
+        DISABLE_ANVIL = value;
+        saveBlockConfig();
+    }
 }

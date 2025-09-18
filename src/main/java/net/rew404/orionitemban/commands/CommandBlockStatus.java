@@ -12,20 +12,27 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.rew404.orionitemban.config.BannedItemsConfig;
 
-public class CommandBanList implements Command<CommandSourceStack> {
-    private static final CommandBanList CMD = new CommandBanList();
+public class CommandBlockStatus implements Command<CommandSourceStack> {
+
+    private static final CommandBlockStatus CMD = new CommandBlockStatus();
 
     public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context) {
-        return Commands
-                .literal("list")
+        return Commands.literal("status")
                 .requires(cs -> cs.hasPermission(2))
                 .executes(CMD);
     }
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        context.getSource().sendSuccess(() ->
-                Component.literal("Items baneados: " + BannedItemsConfig.itemsListToString()).withStyle(ChatFormatting.GREEN), false);
-        return 0;
+        boolean enchantingDisabled = BannedItemsConfig.DISABLE_ENCHANTING_TABLE;
+        boolean anvilDisabled = BannedItemsConfig.DISABLE_ANVIL;
+
+        context.getSource().sendSuccess(() -> Component.literal(
+                "Estado actual:\n" +
+                        "Mesa de encantamientos: " + (enchantingDisabled ? "Deshabilitada ❌" : "Habilitada ✅") + "\n" +
+                        "Yunque: " + (anvilDisabled ? "Deshabilitado ❌" : "Habilitado ✅")
+        ).withStyle(ChatFormatting.GREEN), false);
+
+        return 1;
     }
 }

@@ -31,7 +31,6 @@ public class PlayerItemEvents {
 
         if (BannedItemsConfig.isDeleteOnPickup(id)) {
             event.setCanceled(true);
-            player.displayClientMessage(Component.literal("No puedes recoger este item, ya que esta desactivado"), true);
         }
     }
 }

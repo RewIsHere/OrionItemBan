@@ -1,5 +1,6 @@
 package net.rew404.orionitemban.mixins;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -42,7 +43,9 @@ public class ServerPlayerMixin {
 
                 // Mensaje al jugador
                 player.displayClientMessage(
-                        Component.literal("El item " + itemId + " está baneado y se ha dropeado."),
+                        Component.literal("Este item está baneado y se ha dropeado.").withStyle(
+                        ChatFormatting.RED
+                        ),
                         true
                 );
             }

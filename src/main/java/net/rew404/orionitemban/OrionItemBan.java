@@ -36,6 +36,7 @@ public class OrionItemBan {
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("OrionItemBan: Setup común ejecutado.");
         BannedItemsConfig.loadConfig();
+        BannedItemsConfig.loadBlockConfig();
 
     }
 

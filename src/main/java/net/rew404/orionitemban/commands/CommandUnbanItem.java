@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -33,9 +34,9 @@ public class CommandUnbanItem implements Command<CommandSourceStack> {
         try {
             BannedItemsConfig.unbanItem(itemId);
             context.getSource().sendSuccess(() ->
-                    Component.literal("Item " + itemId + " unbanned!"), false);
+                    Component.literal("El item " + itemId + " ha sido desbaneado!").withStyle(ChatFormatting.AQUA), false);
         } catch (Exception e) {
-            context.getSource().sendFailure(Component.literal("Failed to unban item"));
+            context.getSource().sendFailure(Component.literal("Error al desbanear ese item").withStyle(ChatFormatting.RED));
         }
         return 0;
     }
@@ -50,7 +51,7 @@ public class CommandUnbanItem implements Command<CommandSourceStack> {
             BannedItemsConfig.saveConfig();
 
             context.getSource().sendSuccess(() ->
-                    Component.literal("All items are unbanned!"), false);
+                    Component.literal("Todos los items han sido desbaneados!").withStyle(ChatFormatting.AQUA), false);
             return 0;
         }
     }

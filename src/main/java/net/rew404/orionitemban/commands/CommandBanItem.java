@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -70,7 +71,7 @@ public class CommandBanItem implements Command<CommandSourceStack> {
         BannedItemsConfig.banItem(itemId, category);
 
         context.getSource().sendSuccess(() ->
-                Component.literal("Item " + itemId + " banned in category [" + category + "]!"), false);
+                Component.literal("Se ha baneado " + itemId + " en la categoria [" + category + "]!").withStyle(ChatFormatting.RED), false);
 
         // Si la categoría es "drop", limpiamos inventarios
         if (category.equalsIgnoreCase("drop")) {
